@@ -1,30 +1,36 @@
 package com.cognizant.bingo.prize.service;
 
-public class TicketChecker {
+import com.cognizant.bingo.prize.domain.Prize;
+import org.springframework.stereotype.Service;
+
+@Service
+public class PrizeService {
     private static final int SIX_DIG_PRIZE = 25;
     private static final int EIGHT_DIG_PRIZE = 100;
     private static final int TEN_DIG_PRIZE = 400;
 
-    public String checkPrize(final String ticket) {
-        int prize = 0;
+    public Prize checkPrize(final String ticketNumber) {
+        Prize prize;
 
-        final int multiplier = getPrizeMultiplier(ticket);
+        final int multiplier = getPrizeMultiplier(ticketNumber);
 
-        switch (ticket.length()) {
+        String value = "";
+        switch (ticketNumber.length()) {
             case 6:
-                prize = SIX_DIG_PRIZE * multiplier;
+                value = String.valueOf(SIX_DIG_PRIZE * multiplier);
                 break;
             case 8:
-                prize = EIGHT_DIG_PRIZE * multiplier;
+                value = String.valueOf(EIGHT_DIG_PRIZE * multiplier);
                 break;
             case 10:
-                prize = TEN_DIG_PRIZE * multiplier;
+                value = String.valueOf(TEN_DIG_PRIZE * multiplier);
                 break;
             default:
                 // DO NOTHING
         }
+        prize = new Prize(value);
 
-        return String.valueOf(prize);
+        return prize;
     }
 
     private int getPrizeMultiplier(String ticket) {

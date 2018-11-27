@@ -5,6 +5,7 @@ import com.cognizant.bingo.ticket.service.SixNumberGenerator;
 import com.cognizant.bingo.ticket.service.TenNumberGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 @Configuration
 public class AppConfig {
@@ -15,6 +16,7 @@ public class AppConfig {
     }
 
     @Bean(name = "EightNumberGenerator")
+    @Primary
     public EightNumberGenerator genEight(){
         return new EightNumberGenerator();
     }

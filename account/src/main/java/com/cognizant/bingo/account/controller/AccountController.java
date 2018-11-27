@@ -1,13 +1,17 @@
 package com.cognizant.bingo.account.controller;
 
 import com.cognizant.bingo.account.domain.Account;
+import com.cognizant.bingo.account.domain.Prize;
+import com.cognizant.bingo.account.domain.Ticket;
 import com.cognizant.bingo.account.service.IAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -16,10 +20,20 @@ public class AccountController {
 
     @Autowired
     private IAccountService accountService;
+    @Autowired
+    private RestTemplate restTemplate;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String home() {
-        return "Works";
+    @Value("${url.ticket}")
+    private String ticketURL;
+    @Value("${url.prize}")
+    private String prizeURL;
+
+    @RequestMapping(value = "ticket", method = RequestMethod.GET)
+    public void send() {
+        Ticket ticket = restTemplate.getForObject(ticketURL + "/random", Ticket.class);
+        Prize prize = restTemplate.getForObject(prizeURL + "/prize" + ticket.getTicketNumber(), Prize.class);
+
+        System.out.println(ticket.getTicketNumber());
     }
 
     @RequestMapping(value = "accounts", method = RequestMethod.GET)

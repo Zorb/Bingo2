@@ -3,6 +3,7 @@ package com.cognizant.bingo.account.domain;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Account {
@@ -12,6 +13,10 @@ public class Account {
     private String accountNumber;
     private String firstName;
     private String lastName;
+    @OneToOne
+    private Ticket ticket;
+    @OneToOne
+    private Prize prize;
 
     public Account() {
     }
@@ -52,5 +57,21 @@ public class Account {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Ticket getTicket() {
+        return ticket;
+    }
+
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
+    }
+
+    public Prize getPrize() {
+        return prize;
+    }
+
+    public void setPrize(Prize prize) {
+        this.prize = prize;
     }
 }

@@ -1,13 +1,15 @@
 package com.cognizant.bingo.ticket.service;
 
+import com.cognizant.bingo.ticket.domain.Ticket;
 import com.cognizant.bingo.ticket.utils.Validator;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import java.util.Random;
 
 class AccountNumberGenerator {
-    String generateRandomAccountNumber(final int length) {
+    Ticket generateRandomAccountNumber(final int length) {
         StringBuilder accNumber = new StringBuilder();
+        Ticket ticket;
 
         do {
             Random random = new Random();
@@ -29,7 +31,8 @@ class AccountNumberGenerator {
             accNumber.append(suffix);
 
         } while (Validator.validateAccountNumber(accNumber.toString()));
+        ticket = new Ticket(accNumber.toString());
 
-        return accNumber.toString();
+        return ticket;
     }
 }
