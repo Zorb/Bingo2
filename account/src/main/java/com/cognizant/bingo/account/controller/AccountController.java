@@ -45,13 +45,11 @@ public class AccountController {
     @GetMapping(AccountUrl.URL_ACCOUNT_ID_PRIZE)
     public String send(@PathVariable String id) {
         Account account = accountService.retrieveAccount(id);
-        System.out.println(account);
-        System.out.println(id);
         final Prize prize = restTemplate.getForObject(prizeURL + URL_PRIZE + id, Prize.class);
 
         account.setPrize(prize.getPrize());
+        accountService.updateAccount(account.getAccountNumber(), account);
         return prize.getPrize();
-//        return accountService.updateAccount(account.getAccountNumber(), account);
     }
 
     @GetMapping(AccountUrl.URL_ACCOUNT)
