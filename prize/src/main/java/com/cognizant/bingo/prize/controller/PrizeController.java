@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import static com.cognizant.bingo.prize.constant.PrizeUrl.URL_PRIZE;
 
+@CrossOrigin
 @RestController
 public class PrizeController {
 
     @Autowired
     PrizeService prizeService;
 
-    @CrossOrigin
     @GetMapping(URL_PRIZE)
     public Prize create(@PathVariable String ticketNumber) {
         return prizeService.prizeGenerator(ticketNumber);
