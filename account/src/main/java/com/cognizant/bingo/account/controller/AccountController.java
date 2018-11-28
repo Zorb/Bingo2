@@ -1,10 +1,10 @@
 package com.cognizant.bingo.account.controller;
 
+import com.cognizant.bingo.account.constant.AccountUrl;
 import com.cognizant.bingo.account.domain.Account;
 import com.cognizant.bingo.account.domain.Prize;
 import com.cognizant.bingo.account.domain.Ticket;
 import com.cognizant.bingo.account.service.IAccountService;
-import com.cognizant.bingo.account.util.AccountUrl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+
+import static com.cognizant.bingo.account.constant.PrizeUrl.URL_PRIZE;
+import static com.cognizant.bingo.account.constant.TicketUrl.URL_TICKET;
 
 @RestController
 public class AccountController {
@@ -32,14 +35,23 @@ public class AccountController {
     private String prizeURL;
 
     @PostMapping(AccountUrl.URL_ACCOUNT)
-    public String send(@RequestBody Account account) {
-        final Ticket ticket = restTemplate.getForObject(ticketURL + "/random", Ticket.class);
-        final Prize prize = restTemplate.getForObject(prizeURL + "/prize/" + ticket.getTicketNumber(), Prize.class);
+    public Account send(@RequestBody Account account) {
+        final Ticket ticket = restTemplate.getForObject(ticketURL + URL_TICKET, Ticket.class);
 
         account.setAccountNumber(ticket.getTicketNumber());
-        account.setPrize(prize.getPrize());
-
         return accountService.createAccount(account);
+    }
+
+    @GetMapping(AccountUrl.URL_ACCOUNT_ID_PRIZE)
+    public String send(@PathVariable String id) {
+        Account account = accountService.retrieveAccount(id);
+        System.out.println(account);
+        System.out.println(id);
+        final Prize prize = restTemplate.getForObject(prizeURL + URL_PRIZE + id, Prize.class);
+
+        account.setPrize(prize.getPrize());
+        return prize.getPrize();
+//        return accountService.updateAccount(account.getAccountNumber(), account);
     }
 
     @GetMapping(AccountUrl.URL_ACCOUNT)

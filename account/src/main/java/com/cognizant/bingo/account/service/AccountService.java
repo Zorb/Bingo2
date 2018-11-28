@@ -1,8 +1,6 @@
 package com.cognizant.bingo.account.service;
 
 import com.cognizant.bingo.account.domain.Account;
-import com.cognizant.bingo.account.domain.Prize;
-import com.cognizant.bingo.account.domain.Ticket;
 import com.cognizant.bingo.account.repository.IAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,10 +14,10 @@ public class AccountService implements IAccountService {
     @Autowired
     private IAccountRepository accountRepository;
 
-    public String createAccount(Account account) {
+    public Account createAccount(Account account) {
         accountRepository.save(account);
 
-        return "Account successfully created";
+        return account;
     }
 
     public Account retrieveAccount(String accountId) {

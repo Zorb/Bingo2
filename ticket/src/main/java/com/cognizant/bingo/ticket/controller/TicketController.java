@@ -1,13 +1,11 @@
 package com.cognizant.bingo.ticket.controller;
 
+import com.cognizant.bingo.ticket.constant.TicketUrl;
 import com.cognizant.bingo.ticket.domain.Ticket;
 import com.cognizant.bingo.ticket.service.IAccountGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.lang.reflect.Method;
 
 @RestController
 public class TicketController {
@@ -15,7 +13,7 @@ public class TicketController {
     @Autowired
     IAccountGenerator ticketService;
 
-    @RequestMapping(value = "/random", method = RequestMethod.GET)
+    @GetMapping(TicketUrl.TICKET_URL)
     public Ticket generateTicket() {
         return ticketService.generator();
     }

@@ -17,4 +17,11 @@ public class Ticket {
     public void setTicketNumber(String ticketNumber) {
         this.ticketNumber = ticketNumber;
     }
+
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "ticketNumber='" + ticketNumber + '\'' +
+                '}';
+    }
 }

@@ -17,13 +17,13 @@ public class PrizeService {
         String value = "";
         switch (ticketNumber.length()-1) {
             case 6:
-                value = String.valueOf(SIX_DIG_PRIZE * multiplier);
+                value = "£" + String.valueOf(SIX_DIG_PRIZE * multiplier);
                 break;
             case 8:
-                value = String.valueOf(EIGHT_DIG_PRIZE * multiplier);
+                value = "£" + String.valueOf(EIGHT_DIG_PRIZE * multiplier);
                 break;
             case 10:
-                value = String.valueOf(TEN_DIG_PRIZE * multiplier);
+                value = "£" + String.valueOf(TEN_DIG_PRIZE * multiplier);
                 break;
             default:
                 // DO NOTHING

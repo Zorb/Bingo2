@@ -5,7 +5,7 @@ import com.cognizant.bingo.account.domain.Account;
 import java.util.List;
 
 public interface IAccountService {
-    String createAccount(Account account);
+    Account createAccount(Account account);
 
     Account retrieveAccount(String accountId);
 
