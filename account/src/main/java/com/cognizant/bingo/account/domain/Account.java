@@ -8,15 +8,12 @@ import javax.persistence.OneToOne;
 @Entity
 public class Account {
     @Id
-    @GeneratedValue
-    private Long Id;
+//    @GeneratedValue
+//    private Long Id;
     private String accountNumber;
     private String firstName;
     private String lastName;
-    @OneToOne
-    private Ticket ticket;
-    @OneToOne
-    private Prize prize;
+    private String prize;
 
     public Account() {
     }
@@ -27,13 +24,13 @@ public class Account {
         this.lastName = lastName;
     }
 
-    public Long getId() {
-        return Id;
-    }
+//    public Long getId() {
+//        return Id;
+//    }
 
-    public void setId(Long id) {
-        Id = id;
-    }
+//    public void setId(Long id) {
+//        Id = id;
+//    }
 
     public String getAccountNumber() {
         return accountNumber;
@@ -59,19 +56,22 @@ public class Account {
         this.lastName = lastName;
     }
 
-    public Ticket getTicket() {
-        return ticket;
-    }
-
-    public void setTicket(Ticket ticket) {
-        this.ticket = ticket;
-    }
-
-    public Prize getPrize() {
+    public String getPrize() {
         return prize;
     }
 
-    public void setPrize(Prize prize) {
+    public void setPrize(String prize) {
         this.prize = prize;
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+//                "Id=" + Id +
+                ", accountNumber='" + accountNumber + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", prize=" + prize +
+                '}';
     }
 }

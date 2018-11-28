@@ -16,7 +16,7 @@ public class PrizeController {
 
     @RequestMapping(value = "/prize/{ticketNumber}", method = RequestMethod.GET)
     public Prize create(@PathVariable String ticketNumber) {
-        return prizeService.checkPrize(ticketNumber);
+        return prizeService.prizeGenerator(ticketNumber);
 
     }
 }

@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import com.cognizant.bingo.account.domain.Account;
 
 @Repository
-public interface IAccountRepository extends JpaRepository<Account, Long> {
+public interface IAccountRepository extends JpaRepository<Account, String> {
 }

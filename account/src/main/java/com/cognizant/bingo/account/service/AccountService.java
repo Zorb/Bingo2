@@ -22,18 +22,19 @@ public class AccountService implements IAccountService {
         return "Account successfully created";
     }
 
-    public Account retrieveAccount(Long accountId) {
+    public Account retrieveAccount(String accountId) {
         Optional<Account> accountDB = accountRepository.findById(accountId);
         return accountDB.get();
     }
 
-    public String updateAccount(Long accountId, Account account) {
+    public String updateAccount(String accountId, Account account) {
         Optional<Account> accountDB = accountRepository.findById(accountId);
         String res;
 
         if (!accountDB.isPresent())
             res = "Account does not exists";
         else {
+            account.setAccountNumber(accountId);
             accountRepository.save(account);
             res = "Account successfully updated";
         }
@@ -41,7 +42,7 @@ public class AccountService implements IAccountService {
         return res;
     }
 
-    public String deleteAccount(Long accountId) {
+    public String deleteAccount(String accountId) {
         accountRepository.deleteById(accountId);
         return "Account successfully deleted";
     }

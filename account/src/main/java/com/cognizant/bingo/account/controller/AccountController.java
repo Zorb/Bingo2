@@ -28,36 +28,35 @@ public class AccountController {
     @Value("${url.prize}")
     private String prizeURL;
 
-    @RequestMapping(value = "ticket", method = RequestMethod.GET)
-    public void send() {
-        Ticket ticket = restTemplate.getForObject(ticketURL + "/random", Ticket.class);
-        Prize prize = restTemplate.getForObject(prizeURL + "/prize" + ticket.getTicketNumber(), Prize.class);
 
-        System.out.println(ticket.getTicketNumber());
+    @RequestMapping(value = "account", method = RequestMethod.POST)
+    public String send(@RequestBody Account account) {
+        final Ticket ticket = restTemplate.getForObject(ticketURL + "/random", Ticket.class);
+        final Prize prize = restTemplate.getForObject(prizeURL + "/prize/" + ticket.getTicketNumber(), Prize.class);
+
+        account.setAccountNumber(ticket.getTicketNumber());
+        account.setPrize(prize.getPrize());
+
+        return accountService.createAccount(account);
     }
 
-    @RequestMapping(value = "accounts", method = RequestMethod.GET)
+    @RequestMapping(value = "account", method = RequestMethod.GET)
     public List<Account> list() {
         return accountService.getAllAccounts();
     }
 
-    @RequestMapping(value = "accounts", method = RequestMethod.POST)
-    public String create(@RequestBody Account account) {
-        return accountService.createAccount(account);
-    }
-
-    @RequestMapping(value = "accounts/{id}", method = RequestMethod.GET)
-    public Account get(@PathVariable Long id) {
+    @RequestMapping(value = "account/{id}", method = RequestMethod.GET)
+    public Account get(@PathVariable String id) {
         return accountService.retrieveAccount(id);
     }
 
-    @RequestMapping(value = "accounts/{id}", method = RequestMethod.PUT)
-    public String update(@PathVariable Long id, @RequestBody Account account) {
+    @RequestMapping(value = "account/{id}", method = RequestMethod.PUT)
+    public String update(@PathVariable String id, @RequestBody Account account) {
         return accountService.updateAccount(id, account);
     }
 
-    @RequestMapping(value = "accounts/{id}", method = RequestMethod.DELETE)
-    public String delete(@PathVariable Long id) {
+    @RequestMapping(value = "account/{id}", method = RequestMethod.DELETE)
+    public String delete(@PathVariable String id) {
         return accountService.deleteAccount(id);
     }
 

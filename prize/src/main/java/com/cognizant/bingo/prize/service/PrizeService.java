@@ -9,13 +9,13 @@ public class PrizeService {
     private static final int EIGHT_DIG_PRIZE = 100;
     private static final int TEN_DIG_PRIZE = 400;
 
-    public Prize checkPrize(final String ticketNumber) {
+    public Prize prizeGenerator(final String ticketNumber) {
         Prize prize;
 
         final int multiplier = getPrizeMultiplier(ticketNumber);
 
         String value = "";
-        switch (ticketNumber.length()) {
+        switch (ticketNumber.length()-1) {
             case 6:
                 value = String.valueOf(SIX_DIG_PRIZE * multiplier);
                 break;
