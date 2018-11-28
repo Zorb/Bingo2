@@ -7,6 +7,7 @@ import com.cognizant.bingo.account.domain.Ticket;
 import com.cognizant.bingo.account.service.IAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,6 +35,7 @@ public class AccountController {
     @Value("${url.prize}")
     private String prizeURL;
 
+    @CrossOrigin
     @PostMapping(AccountUrl.URL_ACCOUNT)
     public Account send(@RequestBody Account account) {
         final Ticket ticket = restTemplate.getForObject(ticketURL + URL_TICKET, Ticket.class);
@@ -42,6 +44,7 @@ public class AccountController {
         return accountService.createAccount(account);
     }
 
+    @CrossOrigin
     @GetMapping(AccountUrl.URL_ACCOUNT_ID_PRIZE)
     public String send(@PathVariable String id) {
         Account account = accountService.retrieveAccount(id);
@@ -52,21 +55,25 @@ public class AccountController {
         return prize.getPrize();
     }
 
+    @CrossOrigin
     @GetMapping(AccountUrl.URL_ACCOUNT)
     public List<Account> list() {
         return accountService.getAllAccounts();
     }
 
+    @CrossOrigin
     @GetMapping(AccountUrl.URL_ACCOUNT_ID)
     public Account get(@PathVariable String id) {
         return accountService.retrieveAccount(id);
     }
 
+    @CrossOrigin
     @PutMapping(AccountUrl.URL_ACCOUNT_ID)
     public String update(@PathVariable String id, @RequestBody Account account) {
         return accountService.updateAccount(id, account);
     }
 
+    @CrossOrigin
     @DeleteMapping(AccountUrl.URL_ACCOUNT_ID)
     public String delete(@PathVariable String id) {
         return accountService.deleteAccount(id);
