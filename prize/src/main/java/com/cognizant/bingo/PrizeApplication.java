@@ -1,4 +1,4 @@
-package com.cognizant.bingo.prize;
+package com.cognizant.bingo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

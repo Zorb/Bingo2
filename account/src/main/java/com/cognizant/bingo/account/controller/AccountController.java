@@ -1,6 +1,8 @@
 package com.cognizant.bingo.account.controller;
 
 import com.cognizant.bingo.account.constant.AccountUrl;
+import com.cognizant.bingo.account.constant.PrizeUrl;
+import com.cognizant.bingo.account.constant.TicketUrl;
 import com.cognizant.bingo.account.domain.Account;
 import com.cognizant.bingo.account.domain.Prize;
 import com.cognizant.bingo.account.domain.Ticket;
@@ -19,9 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
-
-import static com.cognizant.bingo.account.constant.PrizeUrl.URL_PRIZE;
-import static com.cognizant.bingo.account.constant.TicketUrl.URL_TICKET;
 
 @CrossOrigin
 @RestController
@@ -42,7 +41,7 @@ public class AccountController {
 
     @PostMapping(AccountUrl.URL_ACCOUNT)
     public Account send(@RequestBody Account account) {
-        final Ticket ticket = restTemplate.getForObject(ticketURL + URL_TICKET, Ticket.class);
+        final Ticket ticket = restTemplate.getForObject(ticketURL + TicketUrl.URL_TICKET, Ticket.class);
         jmsTemplate.convertAndSend("TicketQueue", ticket);
 
         account.setAccountNumber(ticket.getTicketNumber());
@@ -52,7 +51,7 @@ public class AccountController {
     @GetMapping(AccountUrl.URL_ACCOUNT_ID_PRIZE)
     public String send(@PathVariable String id) {
         Account account = accountService.retrieveAccount(id);
-        final Prize prize = restTemplate.getForObject(prizeURL + URL_PRIZE + id, Prize.class);
+        final Prize prize = restTemplate.getForObject(prizeURL + PrizeUrl.URL_PRIZE + id, Prize.class);
         jmsTemplate.convertAndSend("PrizeQueue", prize);
 
         account.setPrize(prize.getPrize());
